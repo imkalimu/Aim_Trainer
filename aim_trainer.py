@@ -114,7 +114,11 @@ def end_screen(win, elapsed_time, targets_pressed, clicks):
     speed = round(targets_pressed / elapsed_time, 1)
     speed_label = LABEL_FONT.render(f"Speed: {speed} t/s", 1, "white")
     hits_label = LABEL_FONT.render(f"Hits: {targets_pressed}", 1, "white")
-    accuracy = round(targets_pressed / clicks * 100, 1)
+    # Avoid a division by zero if the player never clicked
+    if clicks:
+        accuracy = round(targets_pressed / clicks * 100, 1)
+    else:
+        accuracy = 0
     accuracy_label = LABEL_FONT.render(f"Accuracy: {accuracy}%", 1, "white")
 
     # Center the labels on the screen
